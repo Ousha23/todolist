@@ -1,5 +1,7 @@
 # todolist
 
+A Basic Todo List with Vue3
+
 ## Project setup
 ```
 npm install
