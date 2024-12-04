@@ -1,17 +1,19 @@
-<!-- TableTask -->
+<!-- TableTask : tableau d'affichage des tâches -->
 <template>
   <table>
     <thead>
       <tr>
         <th>#</th>
         <th>Tâche</th>
+        <th>Description</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(task, index) in tasks" :key="index">
         <td>{{ index + 1 }}</td>
-        <td>{{ task }}</td>
+        <td>{{ task.name }}</td>
+        <td>{{ task.description }}</td>
         <td>
           <button @click="deleteTask(index)">Supprimer</button>
           <button @click="doneTask(index)">{{ status}}</button>
@@ -20,9 +22,12 @@
     </tbody>
   </table>
 </template>
+
 <script setup>
+
   import {ref} from "vue";
   const status = ref("Commencer");
+
   const props = defineProps({
     tasks: {
       type: Array,
@@ -31,9 +36,11 @@
   });
 
   const emit = defineEmits(["delete-task"]);
+
   const deleteTask = (index) => {
     emit("delete-task", index);
   };
+
   const doneTask = (index) => {
     console.log(`Tâche ${index + 1} terminée!!`);
     switch(status.value){
@@ -44,9 +51,9 @@
         status.value = "Terminé";
         break;
     }
-    
   };
 </script>
+
 <style scoped>
   table {
     width: 75%;
